@@ -41,6 +41,8 @@ const startSimulation = () => {
             width: canvas.width,
             height: canvas.height,
             wireframes: false,  // Disable wireframe mode for a solid rendering
+            showCollisions: true,
+            showBounds: true,
             background: 'transparent',
         }
     });
@@ -62,11 +64,17 @@ const startSimulation = () => {
         console.log('x,y', x, y);
 
         // Create a new ball with random velocity
-        const ball = Matter.Bodies.circle(x, y, 10, {
+        const ball = Matter.Bodies.circle(x, y, 20, {
             restitution: 0.8,  // Bounciness of the ball
             frictionAir: 0.01,  // Small air resistance for natural movement
             render: {
-                fillStyle: 'blue'
+                fillStyle: 'blue',
+                sprite: {
+                    texture: '../images/cat-1.png',
+                    xScale: 0.16,
+                    yScale: 0.16,
+                    yOffset: 0.1
+                }
             },
             label: 'ball-1',
         });
@@ -119,10 +127,12 @@ const startSimulation = () => {
                         restitution: 0.8,
                         frictionAir: 0.01,
                         render: {
-                            // Blend the colors or choose one
-                            fillStyle: Math.random() > 0.5 ?
-                                ball1.render.fillStyle :
-                                ball2.render.fillStyle
+                            sprite: {
+                                texture: '../images/cat-1.png',
+                                xScale: 0.007 * newRadius,
+                                yScale: 0.007 * newRadius,
+                                yOffset: 0.1
+                            }
                         },
                         label: `ball-${bodyANumber + 1}`
                     }
